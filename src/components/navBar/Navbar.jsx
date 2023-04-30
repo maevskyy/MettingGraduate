@@ -8,7 +8,7 @@ import NavBarSearch from './navBarSearch/NavBarSearch';
 
 const Navbar = () => {
   return (
-    <nav className="bg-[#333269] text-[16px] fixed h-[100%] w-[4em] hover:w-[14em] group easy duration-500 ">
+    <nav className="bg-[#333269] text-[16px] fixed h-[100%] w-[4em] hover:w-[14em] group easy duration-500  z-50">
       <div className="flex flex-col gap-[3.75em] h-[100%]">
         <a
           href="/"

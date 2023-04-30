@@ -20,7 +20,7 @@ const App = () => {
     <>
       <div className="flex relative">
         <Navbar />
-        <main className="h-[100vh] w-[100%] ml-[4em] bg-black/50">
+        <main className="h-[100vh] w-[100%] ml-[4em] ">
           {/* <Header/> */}
           <Routes>
             <Route
