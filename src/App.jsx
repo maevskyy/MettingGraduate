@@ -56,7 +56,7 @@ const App = () => {
         {/* popups */}
         {searchCondition && (
           <article
-            className="w-[100%] h-[100%] absolute flex justify-center items-center bottom-[2em] z-10 "
+            className="w-[100%] h-[100%] absolute flex justify-center items-center bottom-[2em] z-[51] "
             onClick={() => disptach(toggleCondition())}
           >
             <div
