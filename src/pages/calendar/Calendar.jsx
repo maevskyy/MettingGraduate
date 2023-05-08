@@ -12,50 +12,17 @@ const Calendar = () => {
   const currYear = date.getFullYear();
   const lastDayOfMonth = new Date(currYear, currMoth + 1, 0).getDate();
 
-  const top = {
-    12: '26px',
-    13: '86px',
-    14: '146px',
-    15: '206px',
-    16: '266px',
-    17: '326px',
-    18: '386px',
-    19: '446px',
-  };
-
-  const height = {
-    1: '56px',
-    2: '116px',
-    3: '176px',
-    4: '236px',
-    5: '296px',
-    6: '356px',
-    7: '416px',
-    8: '476px',
-  };
-
   const [block, setBlock] = useState({
     id: nanoid(),
     title: 'New event',
-    day: '1 Mon',
+    day: '',
     fromTop: '',
-    tllHeight: '',
+    tillBottom: '',
   });
 
   const [columns, setColumns] = useState([
-    {
-      id: nanoid(),
-      title: '1 Mon',
-      cards: [
-        // 56px -1h, 116px -2h, 176px -3h
-        // + 60px for top
-      ],
-    },
-    {
-      id: nanoid(),
-      title: '2 Tue',
-      cards: [],
-    },
+    { id: nanoid(), title: '1 Mon', cards: [] },
+    { id: nanoid(), title: '2 Tue', cards: [] },
     { id: nanoid(), title: '3 Thu', cards: [] },
     { id: nanoid(), title: '4 Wen', cards: [] },
     { id: nanoid(), title: '5 Fri', cards: [] },
@@ -63,62 +30,19 @@ const Calendar = () => {
     { id: nanoid(), title: '7 Sun', cards: [] },
   ]);
 
-  const topFunc = (topVal) => {
-    let final = 26;
-    if (topVal === 12) {
-      return '26px';
-    }
-    for (let i = 12; i < topVal; i++) {
-      final += 60;
-    }
-    return `${final}px`;
-  };
-
-  const [interTop, setInterTop] = useState('');
-  const [interHeight, setInterHeight] = useState('');
-
-  const heightFunc = (heightVal = interHeight, topVal = interTop) => {
-    const height = heightVal - topVal;
-    let final = 56;
-    if (height === 1) {
-      return `${final}px`;
-    }
-    for (let i = 1; i < height; i++) {
-      final += 60;
-    }
-    console.log(`${topVal}-topval ${heightVal}-heightVal`);
-    return `${final}px`;
-    
-  };
-
-  const tillSelectHandler = (event) => {
-    setBlock({ ...block, tllHeight: heightFunc(event.target.value) });
-    };
-
-  const topSelectHandler = (event) => {
-    setBlock({
-      ...block,
-      fromTop: topFunc(event.target.value),
-      tllHeight: heightFunc(interHeight),
-    });
-    setInterTop(event.target.value);
-  };
-
-  const createBlockHandler = () => {
-    setColumns([...columns, columns[0].cards.push(block)]);
+  const createEventHander = () => {
+    setColumns([...columns, columns[block.day].cards.push(block)]);
     setBlock({
       id: nanoid(),
       title: 'New event',
       day: '1 Mon',
       fromTop: '',
-      tllHeight: '',
-      });
+      tillBottom: '',
+    });
   };
 
-  // console.log(`${block.fromTop}-fromtop, ${block.tllHeight}-tllheight`);
-
   return (
-    <div className="bg-black/40 h-[200em] w-[200em]">
+    <div className="bg-black/40 h-full">
       <header className="p-5 shadow-lg ">Some toggles</header>
       <main className="flex m-5 mx-7">
         <section className="mt-6 flex flex-col text-sm border-2">
@@ -142,27 +66,18 @@ const Calendar = () => {
             <div className="border-2 h-[60px]"></div>
             <div className="border-2 h-[60px]"></div>
             <div className="border-2 h-[60px]"></div>
-            <div
-                className={`${longStyles.block}`}
-                style={{
-                  top: `26px`,
-                  bottom: '2px'
-                }}
-              >
-                title
-              </div>
-            {/* {columns[0].cards.map((el) => (
+            {columns[0].cards.map((el) => (
               <div
                 className={`${longStyles.block}`}
                 style={{
-                  height: `${el.tllHeight}`,
                   top: `${el.fromTop}`,
+                  bottom: `${el.tillBottom}`,
                 }}
                 key={el.id}
               >
                 {el.title}
               </div>
-            ))} */}
+            ))}
           </div>
           <div className="w-[135px] border-red-400 text-center flex flex-col relative">
             <h3>2 Tue</h3>
@@ -178,8 +93,8 @@ const Calendar = () => {
               <div
                 className={`${longStyles.block}`}
                 style={{
-                  height: `${el.tllHeight}`,
                   top: `${el.fromTop}`,
+                  bottom: `${el.tillBottom}`,
                 }}
                 key={el.id}
               >
@@ -201,8 +116,8 @@ const Calendar = () => {
               <div
                 className={`${longStyles.block}`}
                 style={{
-                  height: `${el.tllHeight}`,
                   top: `${el.fromTop}`,
+                  bottom: `${el.tillBottom}`,
                 }}
                 key={el.id}
               >
@@ -224,8 +139,8 @@ const Calendar = () => {
               <div
                 className={`${longStyles.block}`}
                 style={{
-                  height: `${el.tllHeight}`,
                   top: `${el.fromTop}`,
+                  bottom: `${el.tillBottom}`,
                 }}
                 key={el.id}
               >
@@ -247,8 +162,8 @@ const Calendar = () => {
               <div
                 className={`${longStyles.block}`}
                 style={{
-                  height: `${el.tllHeight}`,
                   top: `${el.fromTop}`,
+                  bottom: `${el.tillBottom}`,
                 }}
                 key={el.id}
               >
@@ -270,8 +185,8 @@ const Calendar = () => {
               <div
                 className={`${longStyles.block}`}
                 style={{
-                  height: `${el.tllHeight}`,
                   top: `${el.fromTop}`,
+                  bottom: `${el.tillBottom}`,
                 }}
                 key={el.id}
               >
@@ -293,8 +208,8 @@ const Calendar = () => {
               <div
                 className={`${longStyles.block}`}
                 style={{
-                  height: `${el.tllHeight}`,
                   top: `${el.fromTop}`,
+                  bottom: `${el.tillBottom}`,
                 }}
                 key={el.id}
               >
@@ -306,67 +221,75 @@ const Calendar = () => {
         <section className="mt-5 mx-5 text-center flex flex-col w-[8em] gap-2">
           <input
             type="text"
-            id="title"
             className="w-full outline-none p-2"
             placeholder="Title"
+            value={block.title}
+            onChange={(e) => setBlock({ ...block, title: e.target.value })}
           />
-          <select className="p-2 outline-none">
+          <select
+            className="p-2 outline-none"
+            defaultValue={-1}
+            onChange={(e) => setBlock({ ...block, day: e.target.value })}
+          >
             <option
               value=""
               disabled
-              selected
             >
               Day
             </option>
-            <option value="">1 Mon</option>
-            <option value="">2 Tue</option>
-            <option value="">3 Thu</option>
-            <option value="">4 Wen</option>
-            <option value="">5 Fri</option>
-            <option value="">6 Sat</option>
-            <option value="">7 Sun</option>
+            <option value="0">1 Mon</option>
+            <option value="1">2 Tue</option>
+            <option value="2">3 Thu</option>
+            <option value="3">4 Wen</option>
+            <option value="4">5 Fri</option>
+            <option value="5">6 Sat</option>
+            <option value="6">7 Sun</option>
           </select>
           <select
             className="p-2 outline-none"
-            onChange={topSelectHandler}
+            defaultValue={0}
+            onChange={(event) =>
+              setBlock({ ...block, fromTop: event.target.value })
+            }
           >
             <option
-              value="1"
+              value=""
               disabled
-              selected
             >
               From
             </option>
-            <option value="12">12:00</option>
-            <option value="13">13:00</option>
-            <option value="14">14:00</option>
-            <option value="15">15:00</option>
-            <option value="16">16:00</option>
-            <option value="17">17:00</option>
-            <option value="18">18:00</option>
+            <option value="26px">12:00</option>
+            <option value="86px">13:00</option>
+            <option value="146px">14:00</option>
+            <option value="206px">15:00</option>
+            <option value="266px">16:00</option>
+            <option value="326px">17:00</option>
+            <option value="386px">18:00</option>
           </select>
           <select
             className="p-2 outline-none"
-            onChange={tillSelectHandler}
+            defaultValue={0}
+            onChange={(event) =>
+              setBlock({ ...block, tillBottom: event.target.value })
+            }
           >
             <option
-              value="1"
+              value=""
               disabled
-              selected
             >
               Till
             </option>
-            <option value="13">13:00</option>
-            <option value="14">14:00</option>
-            <option value="15">15:00</option>
-            <option value="16">16:00</option>
-            <option value="17">17:00</option>
-            <option value="18">18:00</option>
-            <option value="19">19:00</option>
+            <option value="422px">13:00</option>
+            <option value="362px">14:00</option>
+            <option value="302px">15:00</option>
+            <option value="242px">16:00</option>
+            <option value="182px">17:00</option>
+            <option value="122px">18:00</option>
+            <option value="62px">19:00</option>
           </select>
           <button
             className="bg-white p-2 hover:opacity-70"
-            onClick={createBlockHandler}
+            onClick={createEventHander}
           >
             Create
           </button>

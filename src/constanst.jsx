@@ -37,6 +37,29 @@ export const navLinks = [
     title: 'Settings',
     link: '/Settings',
     img: <RiSettings5Fill className={`${styles.navIconShape}`} />,
-  }
+  },
 ];
 
+export const daysInWeek = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+export const monthInYear = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];

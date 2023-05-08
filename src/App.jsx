@@ -11,7 +11,7 @@ import NotFound from './pages/notFound/NotFound';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCondition } from './components/navBar/navBarSearch/navBarSearch.slice';
-
+import NotesCreateNote from './pages/notes/NotesCreateNote'
 const App = () => {
   const searchCondition = useSelector((el) => el.searchReducer.condition);
   const disptach = useDispatch();
@@ -46,6 +46,10 @@ const App = () => {
             <Route
               path="/User"
               element={<User />}
+            />
+            <Route
+              path="/NotesCreateNote"
+              element={<NotesCreateNote />}
             />
             <Route
               path="*"
