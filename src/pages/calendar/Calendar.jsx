@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
-import { navLinks } from '../../constanst';
 import { nanoid } from '@reduxjs/toolkit';
+import { FaTasks } from 'react-icons/fa';
+import { styles } from '../../styles';
+import { motion, AnimatePresence } from 'framer-motion';
+import './Calendar.css';
+import CalendarCreateEvent from './schedule/CalendarCreateEvent';
 const Calendar = () => {
   const longStyles = {
     block:
@@ -12,6 +16,35 @@ const Calendar = () => {
   const currYear = date.getFullYear();
   const lastDayOfMonth = new Date(currYear, currMoth + 1, 0).getDate();
 
+  const days = [
+    { hour: '12:00' },
+    { hour: '13:00' },
+    { hour: '14:00' },
+    { hour: '15:00' },
+    { hour: '16:00' },
+    { hour: '17:00' },
+    { hour: '18:00' },
+    { hour: '19:00' },
+    { hour: '20:00' },
+    { hour: '21:00' },
+    { hour: '22:00' },
+    { hour: '23:00' },
+    { hour: '00:00' },
+    { hour: '01:00' },
+    { hour: '02:00' },
+    { hour: '03:00' },
+    { hour: '04:00' },
+    { hour: '05:00' },
+    { hour: '06:00' },
+    { hour: '07:00' },
+    { hour: '08:00' },
+    { hour: '09:00' },
+    { hour: '10:00' },
+    { hour: '11:00' },
+  ];
+
+  const [createEvent, setCreateEvent] = useState(false);
+
   const [block, setBlock] = useState({
     id: nanoid(),
     title: 'New event',
@@ -21,13 +54,13 @@ const Calendar = () => {
   });
 
   const [columns, setColumns] = useState([
-    { id: nanoid(), title: '1 Mon', cards: [] },
-    { id: nanoid(), title: '2 Tue', cards: [] },
-    { id: nanoid(), title: '3 Thu', cards: [] },
-    { id: nanoid(), title: '4 Wen', cards: [] },
-    { id: nanoid(), title: '5 Fri', cards: [] },
-    { id: nanoid(), title: '6 Sat', cards: [] },
-    { id: nanoid(), title: '7 Sun', cards: [] },
+    { id: nanoid(), title: '08 Mon', cards: [] },
+    { id: nanoid(), title: '09 Tue', cards: [] },
+    { id: nanoid(), title: '10 Thu', cards: [] },
+    { id: nanoid(), title: '11 Wen', cards: [] },
+    { id: nanoid(), title: '12 Fri', cards: [] },
+    { id: nanoid(), title: '13 Sat', cards: [] },
+    { id: nanoid(), title: '14 Sun', cards: [] },
   ]);
 
   const createEventHander = () => {
@@ -42,257 +75,200 @@ const Calendar = () => {
   };
 
   return (
-    <div className="bg-black/40 h-full">
-      <header className="p-5 shadow-lg ">Some toggles</header>
-      <main className="flex m-5 mx-7">
-        <section className="mt-6 flex flex-col text-sm border-2">
-          <div className=" h-[60px]">12:00</div>
-          <div className=" h-[60px]">13:00</div>
-          <div className=" h-[60px]">14:00</div>
-          <div className=" h-[60px]">15:00</div>
-          <div className=" h-[60px]">16:00</div>
-          <div className=" h-[60px]">17:00</div>
-          <div className=" h-[60px]">18:00</div>
-          <div className="">19:00</div>
-        </section>
-        <section className="flex">
-          <div className="w-[135px] border-red-400 text-center flex flex-col relative ">
-            <h3>1 Mon</h3>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            {columns[0].cards.map((el) => (
-              <div
-                className={`${longStyles.block}`}
-                style={{
-                  top: `${el.fromTop}`,
-                  bottom: `${el.tillBottom}`,
-                }}
-                key={el.id}
-              >
-                {el.title}
-              </div>
-            ))}
-          </div>
-          <div className="w-[135px] border-red-400 text-center flex flex-col relative">
-            <h3>2 Tue</h3>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            {columns[1].cards.map((el) => (
-              <div
-                className={`${longStyles.block}`}
-                style={{
-                  top: `${el.fromTop}`,
-                  bottom: `${el.tillBottom}`,
-                }}
-                key={el.id}
-              >
-                {el.title}
-              </div>
-            ))}
-          </div>
-          <div className="w-[135px] border-red-400 text-center flex flex-col relative ">
-            <h3>3 Thu</h3>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            {columns[2].cards.map((el) => (
-              <div
-                className={`${longStyles.block}`}
-                style={{
-                  top: `${el.fromTop}`,
-                  bottom: `${el.tillBottom}`,
-                }}
-                key={el.id}
-              >
-                {el.title}
-              </div>
-            ))}
-          </div>
-          <div className="w-[135px] border-red-400 text-center flex flex-col relative">
-            <h3>4 Wen</h3>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            {columns[3].cards.map((el) => (
-              <div
-                className={`${longStyles.block}`}
-                style={{
-                  top: `${el.fromTop}`,
-                  bottom: `${el.tillBottom}`,
-                }}
-                key={el.id}
-              >
-                {el.title}
-              </div>
-            ))}
-          </div>
-          <div className="w-[135px] border-red-400 text-center flex flex-col relative">
-            <h3>5 Fri</h3>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            {columns[4].cards.map((el) => (
-              <div
-                className={`${longStyles.block}`}
-                style={{
-                  top: `${el.fromTop}`,
-                  bottom: `${el.tillBottom}`,
-                }}
-                key={el.id}
-              >
-                {el.title}
-              </div>
-            ))}
-          </div>
-          <div className="w-[135px] border-red-400 text-center flex flex-col relative">
-            <h3>6 Sat</h3>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            {columns[5].cards.map((el) => (
-              <div
-                className={`${longStyles.block}`}
-                style={{
-                  top: `${el.fromTop}`,
-                  bottom: `${el.tillBottom}`,
-                }}
-                key={el.id}
-              >
-                {el.title}
-              </div>
-            ))}
-          </div>
-          <div className="w-[135px] border-red-400 text-center flex flex-col relative">
-            <h3>7 Sun</h3>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            <div className="border-2 h-[60px]"></div>
-            {columns[6].cards.map((el) => (
-              <div
-                className={`${longStyles.block}`}
-                style={{
-                  top: `${el.fromTop}`,
-                  bottom: `${el.tillBottom}`,
-                }}
-                key={el.id}
-              >
-                {el.title}
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="mt-5 mx-5 text-center flex flex-col w-[8em] gap-2">
-          <input
-            type="text"
-            className="w-full outline-none p-2"
-            placeholder="Title"
-            value={block.title}
-            onChange={(e) => setBlock({ ...block, title: e.target.value })}
-          />
-          <select
-            className="p-2 outline-none"
-            defaultValue={-1}
-            onChange={(e) => setBlock({ ...block, day: e.target.value })}
+    <div className="h-full w-full relative overflow-hidden ">
+      <AnimatePresence>
+        {createEvent && (
+          <motion.div
+            initial={{ x: 500 }}
+            animate={{ x: 0 }}
+            exit={{ x: 500 }}
+            transition={{ duration: 0.5 }}
           >
-            <option
-              value=""
-              disabled
-            >
-              Day
-            </option>
-            <option value="0">1 Mon</option>
-            <option value="1">2 Tue</option>
-            <option value="2">3 Thu</option>
-            <option value="3">4 Wen</option>
-            <option value="4">5 Fri</option>
-            <option value="5">6 Sat</option>
-            <option value="6">7 Sun</option>
-          </select>
-          <select
-            className="p-2 outline-none"
-            defaultValue={0}
-            onChange={(event) =>
-              setBlock({ ...block, fromTop: event.target.value })
-            }
-          >
-            <option
-              value=""
-              disabled
-            >
-              From
-            </option>
-            <option value="26px">12:00</option>
-            <option value="86px">13:00</option>
-            <option value="146px">14:00</option>
-            <option value="206px">15:00</option>
-            <option value="266px">16:00</option>
-            <option value="326px">17:00</option>
-            <option value="386px">18:00</option>
-          </select>
-          <select
-            className="p-2 outline-none"
-            defaultValue={0}
-            onChange={(event) =>
-              setBlock({ ...block, tillBottom: event.target.value })
-            }
-          >
-            <option
-              value=""
-              disabled
-            >
-              Till
-            </option>
-            <option value="422px">13:00</option>
-            <option value="362px">14:00</option>
-            <option value="302px">15:00</option>
-            <option value="242px">16:00</option>
-            <option value="182px">17:00</option>
-            <option value="122px">18:00</option>
-            <option value="62px">19:00</option>
-          </select>
-          <button
-            className="bg-white p-2 hover:opacity-70"
-            onClick={createEventHander}
-          >
-            Create
+            <CalendarCreateEvent
+              createEvent={createEvent}
+              setCreateEvent={setCreateEvent}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <header className="shadow-md px-[2.2em] py-[1em] flex justify-between text-[12px] ">
+        <div className="flex justify-center items-center gap-[.4em]">
+          <button className=" font-semibold text-[#EE3637] border-1 px-[.9em] py-[.5em] rounded-[4px] bg-[#ee363638]">
+            Today
           </button>
+          <button className=" text-[12px] font-semibold text-[#EE3637] border-1 px-[.9em] py-[.5em] rounded-[4px] bg-[#ee363638]">
+            Filters
+          </button>
+        </div>
+        <div className="flex justify-center items-center gap-[1em]">
+          <button
+            onClick={() => setCreateEvent((prev) => !prev)}
+            className="text-[#EE3637] font-semibold px-[.9em] py-[.5em] hover:bg-[#ee363638] rounded-[4px] duration-300 ease-in-out"
+          >
+            Create Event
+          </button>
+          <div className="p-2 hover:bg-[#ee363638] rounded-[4px] duration-300 ease-in-out hover:cursor-pointer">
+            <FaTasks className={`${styles.navIconShape}`} />
+          </div>
+        </div>
+      </header>
+      <main className="flex  flex-col h-[90%] pt-[20px]  w-[95%] m-auto">
+        <section className="flex ml-[30px]">
+          <div className="w-[160px]">08 Mon</div>
+          <div className="w-[160px]">09 Tue</div>
+          <div className="w-[160px]">10 Wen</div>
+          <div className="w-[160px]">11 Thu</div>
+          <div className="w-[160px]">12 Fri</div>
+          <div className="w-[160px]">13 Sut</div>
+          <div className="w-[160px]">14 Sun</div>
+        </section>
+        <section
+          className="flex"
+          id="scrollbar"
+        >
+          <article className="flex flex-col">
+            {days.map((el, index) => (
+              <div
+                className="text-[12px] pb-[27px] self-end"
+                key={index}
+              >
+                {el.hour}
+              </div>
+            ))}
+          </article>
+          <article className="flex">
+            <div className="relative">
+              {days.map((index) => (
+                <div
+                  key={index}
+                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
+                ></div>
+              ))}
+              {columns[0].cards.map((el) => (
+                <article
+                  key={el.id}
+                  className="w-full absolute flex  justify-center z-20"
+                  style={{
+                    top: el.hourFrom,
+                    bottom: el.hourTill
+                  }}
+                >
+                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
+                    {el.title}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="">
+              {days.map((index) => (
+                <div
+                  key={index}
+                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
+                ></div>
+              ))}
+              {columns[1].cards.map((el) => (
+                <article
+                  key={el.id}
+                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
+                >
+                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
+                    {el.title}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="">
+              {days.map((index) => (
+                <div
+                  key={index}
+                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
+                ></div>
+              ))}
+              {columns[2].cards.map((el) => (
+                <article
+                  key={el.id}
+                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
+                >
+                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
+                    {el.title}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="">
+              {days.map((index) => (
+                <div
+                  key={index}
+                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
+                ></div>
+              ))}
+              {columns[3].cards.map((el) => (
+                <article
+                  key={el.id}
+                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
+                >
+                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
+                    {el.title}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="">
+              {days.map((index) => (
+                <div
+                  key={index}
+                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
+                ></div>
+              ))}
+              {columns[4].cards.map((el) => (
+                <article
+                  key={el.id}
+                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
+                >
+                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
+                    {el.title}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="">
+              {days.map((index) => (
+                <div
+                  key={index}
+                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
+                ></div>
+              ))}
+              {columns[5].cards.map((el) => (
+                <article
+                  key={el.id}
+                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
+                >
+                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
+                    {el.title}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="">
+              {days.map((index) => (
+                <div
+                  key={index}
+                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
+                ></div>
+              ))}
+              {columns[6].cards.map((el) => (
+                <article
+                  key={el.id}
+                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
+                >
+                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
+                    {el.title}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </article>
         </section>
       </main>
     </div>

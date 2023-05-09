@@ -1,0 +1,7 @@
+#scrollbar {
+  overflow: auto;
+}
+
+#scrollbar::-webkit-scrollbar {
+    width: 1px;
+}
