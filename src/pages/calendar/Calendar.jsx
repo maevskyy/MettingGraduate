@@ -2,14 +2,114 @@ import { useEffect, useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { FaTasks } from 'react-icons/fa';
 import { styles } from '../../styles';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import { useSelector } from 'react-redux';
 import './Calendar.css';
 import CalendarCreateEvent from './schedule/CalendarCreateEvent';
+import CalendarEvent from './schedule/CalendarEvent/CalendarEvent';
+import moment from 'moment';
 const Calendar = () => {
-  const longStyles = {
-    block:
-      ' w-[94%] rounded-md  bg-sky-500 border-2 border-black text-white flex justify-center items-center font-semibold absolute mx-1',
-  };
+  const state = useSelector((el) => el.calendarReducer);
+
+
+  // // moment.updateLocale('en', { week: { dow: 1 } });
+  const startDay = moment().startOf('week');
+  const endDay = moment().endOf('week');
+
+  const columnsArr = []
+  let day = startDay.clone();
+
+  while (!day.isAfter(endDay)) {
+    columnsArr.push(day.clone().format('DD dd'));
+    day.add(1, 'day');
+  }
+
+  const time = {
+    '2023': {
+      '0':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '1':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '2':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '3':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '4':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '5':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '6':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '7':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '8':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '9':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '10':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+      '11':{
+        '1w':[],
+        '2w':[],
+        '3w':[],
+        '4w':[],
+      },
+
+
+    }
+  }
+
+
+
+  // console.log(startDay.format('YYYY-MM-DD'));
+  // console.log(endDay.format('YYYY-MM-DD'));
+
+  // const plusday = moment().add(1, 'month').format('YYYY-MM-DD')
+  // console.log(plusday);
 
   const date = new Date();
   const currMoth = date.getMonth();
@@ -43,7 +143,9 @@ const Calendar = () => {
     { hour: '11:00' },
   ];
 
+
   const [createEvent, setCreateEvent] = useState(false);
+  const [isOpenEvent, setIsOpenEvent] = useState(false);
 
   const [block, setBlock] = useState({
     id: nanoid(),
@@ -52,16 +154,6 @@ const Calendar = () => {
     fromTop: '',
     tillBottom: '',
   });
-
-  const [columns, setColumns] = useState([
-    { id: nanoid(), title: '08 Mon', cards: [] },
-    { id: nanoid(), title: '09 Tue', cards: [] },
-    { id: nanoid(), title: '10 Thu', cards: [] },
-    { id: nanoid(), title: '11 Wen', cards: [] },
-    { id: nanoid(), title: '12 Fri', cards: [] },
-    { id: nanoid(), title: '13 Sat', cards: [] },
-    { id: nanoid(), title: '14 Sun', cards: [] },
-  ]);
 
   const createEventHander = () => {
     setColumns([...columns, columns[block.day].cards.push(block)]);
@@ -79,10 +171,10 @@ const Calendar = () => {
       <AnimatePresence>
         {createEvent && (
           <motion.div
-            initial={{ x: 500 }}
-            animate={{ x: 0 }}
-            exit={{ x: 500 }}
-            transition={{ duration: 0.5 }}
+          // initial={{ x: 500, }}
+          // animate={{ x: 0 }}
+          // exit={{ x: 500 }}
+          // transition={{ duration: .5 }}
           >
             <CalendarCreateEvent
               createEvent={createEvent}
@@ -91,6 +183,12 @@ const Calendar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      {isOpenEvent && (
+        <CalendarEvent
+          setIsOpenEvent={setIsOpenEvent}
+          isOpenEvent={isOpenEvent}
+        />
+      )}
 
       <header className="shadow-md px-[2.2em] py-[1em] flex justify-between text-[12px] ">
         <div className="flex justify-center items-center gap-[.4em]">
@@ -115,13 +213,9 @@ const Calendar = () => {
       </header>
       <main className="flex  flex-col h-[90%] pt-[20px]  w-[95%] m-auto">
         <section className="flex ml-[30px]">
-          <div className="w-[160px]">08 Mon</div>
-          <div className="w-[160px]">09 Tue</div>
-          <div className="w-[160px]">10 Wen</div>
-          <div className="w-[160px]">11 Thu</div>
-          <div className="w-[160px]">12 Fri</div>
-          <div className="w-[160px]">13 Sut</div>
-          <div className="w-[160px]">14 Sun</div>
+          {columnsArr.map((el) => (
+            <div className="w-[160px]">{el}</div>
+          ))}
         </section>
         <section
           className="flex"
@@ -138,136 +232,34 @@ const Calendar = () => {
             ))}
           </article>
           <article className="flex">
-            <div className="relative">
-              {days.map((index) => (
-                <div
-                  key={index}
-                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
-                ></div>
-              ))}
-              {columns[0].cards.map((el) => (
-                <article
-                  key={el.id}
-                  className="w-full absolute flex  justify-center z-20"
-                  style={{
-                    top: el.hourFrom,
-                    bottom: el.hourTill
-                  }}
-                >
-                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
-                    {el.title}
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="">
-              {days.map((index) => (
-                <div
-                  key={index}
-                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
-                ></div>
-              ))}
-              {columns[1].cards.map((el) => (
-                <article
-                  key={el.id}
-                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
-                >
-                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
-                    {el.title}
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="">
-              {days.map((index) => (
-                <div
-                  key={index}
-                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
-                ></div>
-              ))}
-              {columns[2].cards.map((el) => (
-                <article
-                  key={el.id}
-                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
-                >
-                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
-                    {el.title}
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="">
-              {days.map((index) => (
-                <div
-                  key={index}
-                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
-                ></div>
-              ))}
-              {columns[3].cards.map((el) => (
-                <article
-                  key={el.id}
-                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
-                >
-                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
-                    {el.title}
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="">
-              {days.map((index) => (
-                <div
-                  key={index}
-                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
-                ></div>
-              ))}
-              {columns[4].cards.map((el) => (
-                <article
-                  key={el.id}
-                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
-                >
-                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
-                    {el.title}
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="">
-              {days.map((index) => (
-                <div
-                  key={index}
-                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
-                ></div>
-              ))}
-              {columns[5].cards.map((el) => (
-                <article
-                  key={el.id}
-                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
-                >
-                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
-                    {el.title}
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="">
-              {days.map((index) => (
-                <div
-                  key={index}
-                  className="w-[160px] h-[45px] border-gray-200 border-[1px]"
-                ></div>
-              ))}
-              {columns[6].cards.map((el) => (
-                <article
-                  key={el.id}
-                  className="w-full absolute top-[0px] flex  justify-center bottom-[200px] z-20"
-                >
-                  <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
-                    {el.title}
-                  </div>
-                </article>
-              ))}
-            </div>
+            {columnsArr.map((el, index) => (
+              <div className="relative">
+                {days.map((index) => (
+                  <div
+                    key={index}
+                    className="w-[160px] h-[45px] border-gray-200 border-[1px]"
+                  ></div>
+                ))}
+
+                {state[index].cards.map((el) => (
+                  <article
+                    key={el.id}
+                    className="w-full absolute flex  justify-center z-20"
+                    style={{
+                      top: `${el.hourFrom}`,
+                      bottom: `${el.hourTill}`,
+                    }}
+                  >
+                    <div
+                      onClick={() => setIsOpenEvent((prev) => !prev)}
+                      className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md "
+                    >
+                      {el.title}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ))}
           </article>
         </section>
       </main>

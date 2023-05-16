@@ -21,7 +21,7 @@ const Navbar = () => {
               className=" "
             />
           </div>
-          <h1 className=" opacity-0 group-[:hover]:opacity-100  duration-[1s] ease-[cubic-bezier(0,0,0,100)] font-MuseoModerno font-semibold text-[1.7em] text-[#C0BEFF]">
+          <h1 className=" opacity-0 group-[:hover]:opacity-100  duration-[1s] ease-[cubic-bezier(0,0,0,100)]  font-semibold text-[1.7em] text-[#C0BEFF]">
             OnPhase
           </h1>
         </a>

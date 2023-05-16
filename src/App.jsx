@@ -1,17 +1,18 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Router } from 'react-router-dom';
 import Calendar from './pages/calendar/Calendar';
 import Tasks from './pages/tasks/Tasks';
 import Navbar from './components/navBar/Navbar';
 // import Header from './pages/header/Header';
 import Today from './pages/today/Today';
 import Notes from './pages/notes/Notes';
+import NotesItem from './pages/notes/NotesItem'
 import Settings from './pages/settings/Settings';
 import User from './pages/user/User';
 import NotFound from './pages/notFound/NotFound';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCondition } from './components/navBar/navBarSearch/navBarSearch.slice';
-import NotesCreateNote from './pages/notes/NotesCreateNote'
+import NotesCreateNote from './pages/notes/NotesCreateNote';
 const App = () => {
   const searchCondition = useSelector((el) => el.searchReducer.condition);
   const disptach = useDispatch();
@@ -48,13 +49,13 @@ const App = () => {
               element={<User />}
             />
             <Route
-              path="/NotesCreateNote"
-              element={<NotesCreateNote />}
-            />
-            <Route
               path="*"
               element={<NotFound />}
             />
+              <Route
+                path="/Notes/:id"
+                element={<NotesItem/>}
+              />
           </Routes>
         </main>
         {/* popups */}

@@ -1,9 +1,17 @@
-import React from 'react'
+import { useState } from 'react';
+
+import Table from '../../components/UI/Table/Table';
 
 const Today = () => {
-  return (
-    <div>Today</div>
-  )
-}
+  const [selectedDate, setSelectedDate] = useState('');
 
-export default Today
+
+  return (
+    <div className="p-5">
+      <Table setSelectedDate={setSelectedDate}/>
+      {selectedDate}
+    </div>
+  );
+};
+
+export default Today;
