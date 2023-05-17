@@ -1,9 +1,11 @@
-import { nanoid } from '@reduxjs/toolkit';
+import { TaskAbortError, nanoid } from '@reduxjs/toolkit';
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, useStore } from 'react-redux';
 import { addEvent } from '../calendar.slice';
 import { GrClose } from 'react-icons/gr';
 import { AnimatePresence, motion } from 'framer-motion';
+import Table from '../../../components/UI/Table/Table';
+import moment from 'moment';
 
 const CalendarCreateEvent = ({ createEvent, setCreateEvent }) => {
   const state = useSelector((el) => el.calendarReducer);
@@ -36,6 +38,9 @@ const CalendarCreateEvent = ({ createEvent, setCreateEvent }) => {
       description: '',
     });
   };
+
+  const [viewTable, setViewTable] = useState(false);
+  const [tableDate, setTableDate] = useState(moment().format('YYYY-MM-DD'));
 
   return (
     <div
@@ -73,24 +78,30 @@ const CalendarCreateEvent = ({ createEvent, setCreateEvent }) => {
                     }
                   />
                 </article>
-                <article className="flex flex-col">
+                <article className="flex flex-col relative">
                   <h4 className="text-[12px] mb-2">Tell us when?</h4>
-                  <select
+
+                  <input
+                    readOnly
+                    type="text"
+                    value={tableDate}
                     className="mb-1 first-letter:border-gray-300 border-[1px] w-full rounded-sm placeholder:italic text-[12px] p-[.3em] px-[1em]"
-                    onChange={(e) =>
-                      setEvent({ ...event, weekDay: e.target.value })
-                    }
-                    defaultValue="0"
-                  >
-                    <option value="0">08 Mon</option>
-                    <option value="1">09 Tue</option>
-                    <option value="2">10 Wen</option>
-                    <option value="3">11 Thu</option>
-                    <option value="4">12 Fri</option>
-                    <option value="5">13 Sat</option>
-                    <option value="6">14 Sun</option>
-                  </select>
-                  <div className="flex gap-1">
+                    onClick={() => setViewTable(!viewTable)}
+                  />
+                  {viewTable && (
+                    <div
+                      className="absolute z-[100] top-[3.5em]"
+                    >
+                      
+                      <Table
+                        className=""
+                        setChosenState={setTableDate}
+                        chosenState={tableDate}
+                      />
+                    </div>
+                  )}
+
+                  <div className="flex  gap-1">
                     <select
                       className="mb-1 first-letter:border-gray-300 border-[1px] w-full rounded-sm placeholder:italic text-[12px] p-[.3em] px-[1em]"
                       onChange={(e) =>

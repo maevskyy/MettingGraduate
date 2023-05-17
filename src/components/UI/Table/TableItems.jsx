@@ -1,9 +1,12 @@
-import {useState} from 'react';
+import moment from 'moment';
+import { useState } from 'react';
 
-const TableItems = ({ startDay, today, setSelectedDate }) => {
+const TableItems = ({ startDay, today, setChosenState, chosenState }) => {
 
 
   const day = startDay.clone().subtract(1, 'day');
+
+  const currentDay = moment();
 
   const totalDays = 42;
   const daysArray = [...Array(42)].map(() => day.add(1, 'day').clone());
@@ -13,8 +16,14 @@ const TableItems = ({ startDay, today, setSelectedDate }) => {
       {daysArray.map((el) => (
         <div
           key={el.format('DDMMYYYY')}
-          className={`h-[2.5em] flex items-center justify-center hover:cursor-pointer hover:bg-blue-300/25 ${today.format('YYYY-MM-DD') === el.format('YYYY-MM-DD') ? 'bg-red-300/25': ''}`}
-          onClick={() => setSelectedDate(el.format('YYYY-MM-DD')) }
+          className={`h-[2.5em] flex items-center justify-center hover:cursor-pointer hover:bg-blue-300/25 
+          ${
+            currentDay.format('YYYY-MM-DD') === el.format('YYYY-MM-DD')
+              ? 'bg-red-300/25'
+              : ''
+          }
+          ${chosenState === el.format('YYYY-MM-DD') ? 'bg-green-300/25' : ''}`}
+          onClick={() => setChosenState(el.format('YYYY-MM-DD'))}
         >
           {el.format('D')}
         </div>
