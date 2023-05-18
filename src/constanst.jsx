@@ -16,8 +16,8 @@ export const navLinks = [
   },
   {
     id: 2,
-    title: 'Calendar',
-    link: '/Calendar',
+    title: 'Schedule',
+    link: '/Schedule',
     img: <AiFillCalendar className={`${styles.navIconShape}`} />,
   },
   {

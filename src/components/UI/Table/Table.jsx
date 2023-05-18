@@ -13,9 +13,12 @@ const Table = ({ setChosenState, chosenState }) => {
     setToday((prev) => prev.clone().subtract(1, 'month'));
   };
   const nextTableHandler = () => {
-
     setToday((prev) => prev.clone().add(1, 'month'));
   };
+  const todayTableHandler = () => {
+    setToday(moment())
+
+  }
 
   return (
     <div
@@ -25,6 +28,7 @@ const Table = ({ setChosenState, chosenState }) => {
         today={today}
         prevTableHandler={prevTableHandler}
         nextTableHandler={nextTableHandler}
+        todayTableHandler={todayTableHandler}
       />
       <TableItems
         startDay={startDay}

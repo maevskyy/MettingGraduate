@@ -1,5 +1,5 @@
 import { Routes, Route, Router } from 'react-router-dom';
-import Calendar from './pages/calendar/Calendar';
+import Schedule from './pages/schedule/Schedule';
 import Tasks from './pages/tasks/Tasks';
 import Navbar from './components/navBar/Navbar';
 // import Header from './pages/header/Header';
@@ -29,8 +29,8 @@ const App = () => {
               element={<Today />}
             />
             <Route
-              path="/Calendar"
-              element={<Calendar />}
+              path="/Schedule"
+              element={<Schedule />}
             />
             <Route
               path="/Notes"

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { useState } from 'react';
 
-const TableItems = ({ startDay, today, setChosenState, chosenState }) => {
+const TableItems = ({ startDay, setChosenState, chosenState }) => {
 
 
   const day = startDay.clone().subtract(1, 'day');
@@ -23,7 +23,7 @@ const TableItems = ({ startDay, today, setChosenState, chosenState }) => {
               : ''
           }
           ${chosenState === el.format('YYYY-MM-DD') ? 'bg-green-300/25' : ''}`}
-          onClick={() => setChosenState(el.format('YYYY-MM-DD'))}
+          onClick={() => setChosenState(el.format('YYYY MM DD'))}
         >
           {el.format('D')}
         </div>
