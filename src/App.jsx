@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <>
-      <div className="flex relative">
+      <div className="flex relative  overflow-hidden">
         <Navbar />
         <main className="h-[100vh] w-[100%] ml-[4em] ">
           {/* <Header/> */}

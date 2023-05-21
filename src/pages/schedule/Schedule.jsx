@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
-import { AnimatePresence, animate, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import ScheduleCreate from './ScheduleCreateEvent';
 import ScheduleEvent from './ScheduleEvent';
 import ScheduleHeader from './ScheduleHeader';
 import ScheduleMain from './ScheduleMain/ScheduleMain';
-import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
 const Schedule = () => {
   moment.updateLocale('en', { week: { dow: 1 } });
@@ -25,18 +24,28 @@ const Schedule = () => {
   };
 
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [isEventOpen, setIsEventOpen] = useState({
+    condition: false,
+    eventInfo: {},
+  });
+
+  useEffect(() => {
+    if (isEventOpen.condition) {
+      setIsCreateOpen(false);
+    }
+  }, [isEventOpen]);
 
   //! delete
   const hours = [
-    { hour: '12:00',},
-    { hour: '13:00',},
-    { hour: '14:00',},
-    { hour: '15:00',},
-    { hour: '16:00',},
-    { hour: '17:00',},
-    { hour: '18:00',},
-    { hour: '19:00',},
-    { hour: '20:00',},
+    { hour: '12:00' },
+    { hour: '13:00' },
+    { hour: '14:00' },
+    { hour: '15:00' },
+    { hour: '16:00' },
+    { hour: '17:00' },
+    { hour: '18:00' },
+    { hour: '19:00' },
+    { hour: '20:00' },
     { hour: '21:00' },
     { hour: '22:00' },
     { hour: '23:00' },
@@ -54,34 +63,33 @@ const Schedule = () => {
     { hour: '11:00' },
   ];
 
-  const topResultArr = [0]
-  let item = 0
+  const topResultArr = [0];
+  let item = 0;
   for (let i = 1; i < hours.length; i++) {
-      topResultArr.push(item += 45)  
+    topResultArr.push((item += 45));
   }
 
   const hoursWithTop = hours.map((el, index) => {
-      return {
-        ...el,
-        top: topResultArr[index]
-      }
-  })
+    return {
+      ...el,
+      top: topResultArr[index],
+    };
+  });
 
-
-  const bottomResultArr = [550]
-  let canIGetAHoyaaa = 550
+  const bottomResultArr = [550];
+  let canIGetAHoyaaa = 550;
   for (let i = 1; i < hours.length; i++) {
-    bottomResultArr.push(canIGetAHoyaaa -= 45)
+    bottomResultArr.push((canIGetAHoyaaa -= 45));
   }
 
   const finalHourArr = hoursWithTop.map((el, index) => {
     return {
       ...el,
-      bottom: bottomResultArr[index]
-    }
-})
+      bottom: bottomResultArr[index],
+    };
+  });
 
-//! still delete
+  //! still delete
   return (
     <div className="h-full w-full relative overflow-hidden">
       <ScheduleHeader
@@ -97,6 +105,7 @@ const Schedule = () => {
         startWeekDay={startWeekDay}
         endWeekDay={endWeekDay}
         finalHourArr={finalHourArr}
+        setIsEventOpen={setIsEventOpen}
       />
       <AnimatePresence>
         {isCreateOpen && (
@@ -116,7 +125,24 @@ const Schedule = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      {false && <ScheduleEvent />}
+      <AnimatePresence>
+        {isEventOpen.condition && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            // initial={{ x: 500 }}
+            // animate={{ x: 0 }}
+            // exit={{ x: 500 }}
+            // transition={{ duration: 0.5 }}
+          >
+            <ScheduleEvent
+              isEventOpen={isEventOpen}
+              setIsEventOpen={setIsEventOpen}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -8,11 +8,8 @@ import { addCalendarEvent } from '../../store/Schedule/Schedule.slice';
 import moment from 'moment';
 
 const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
-
-  const mainState = useSelector(state => state.scheduleReducer)
-  const dispatch = useDispatch()
-
-  console.log(mainState);
+  const mainState = useSelector((state) => state.scheduleReducer);
+  const dispatch = useDispatch();
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [deleteSnipet, setDeleteSnipet] = useState(
@@ -35,7 +32,7 @@ const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
   };
 
   const saveHandler = () => {
-    dispatch(addCalendarEvent(calendarEvent))
+    dispatch(addCalendarEvent(calendarEvent));
     setCalendarEvent({
       id: nanoid(),
       title: 'Default Title',
@@ -45,9 +42,9 @@ const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
       guests: [],
       location: '',
       description: '',
-    })
-    setIsCreateOpen(prev => !prev)
-  }
+    });
+    setIsCreateOpen((prev) => !prev);
+  };
 
   return (
     <section className="absolute p-5 top-0 right-0 h-full bg-white z-40 w-[20em] shadow-xl flex flex-col gap-[1.5em]">
@@ -121,14 +118,6 @@ const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
           </select>
         </div>
       </article>
-      <article className="flex ">
-        <button
-          className="px-3 py-1 rounded-md text-[12px] bg-gray-300"
-          onClick={saveHandler}
-        >
-          Save
-        </button>
-      </article>
       <article>
         <h4 className="text-[12px] mb-2">Add guests</h4>
         <input
@@ -148,20 +137,20 @@ const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
       <article>
         <h4 className="text-[12px] mb-2">Description</h4>
         <textarea
-          className="h-[10em] resize-none mb-1 first-letter:border-gray-300 border-[1px] w-full rounded-sm placeholder:italic text-[12px] p-[.3em] px-[1em]"
+          className="outline-none h-[10em] resize-none mb-1 first-letter:border-gray-300 border-[1px] w-full rounded-sm placeholder:italic text-[12px] p-[.3em] px-[1em]"
           placeholder="Add description"
-          // value={event.description}
-          // onChange={(e) => setEvent({ ...event, description: e.target.value })}
+          value={calendarEvent.description}
+          onChange={(e) => setCalendarEvent({ ...calendarEvent, description: e.target.value })}
         />
       </article>
-      {/* <article className="flex ">
+      <article className="flex ">
         <button
           className="px-3 py-1 rounded-md text-[12px] bg-gray-300"
           onClick={saveHandler}
         >
           Save
         </button>
-      </article> */}
+      </article>
     </section>
   );
 };

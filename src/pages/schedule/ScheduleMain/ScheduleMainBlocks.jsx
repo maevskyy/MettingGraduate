@@ -1,7 +1,11 @@
 import { useSelector } from 'react-redux';
 import './ScheduleMainBlocks.css';
 
-const ScheduleMainBlocks = ({ daysInWeek, finalHourArr }) => {
+const ScheduleMainBlocks = ({setIsEventOpen, daysInWeek, finalHourArr }) => {
+
+
+
+  
   const scheduleState = useSelector((state) => state.scheduleReducer);
 
   return (
@@ -26,10 +30,12 @@ const ScheduleMainBlocks = ({ daysInWeek, finalHourArr }) => {
 
         {daysInWeek.map((el) => (
           <div className="relative">
+            
             {finalHourArr.map((_, index) => (
               <div
                 key={index}
                 className="w-[160px] h-[45px] border-gray-200 border-[1px]"
+                
               ></div>
             ))}
             {scheduleState.map((obj) => {
@@ -44,7 +50,10 @@ const ScheduleMainBlocks = ({ daysInWeek, finalHourArr }) => {
                         bottom: `${card.hourTill}`,
                       }}
                     >
-                      <div className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md ">
+                      <div
+                        onClick={() => setIsEventOpen({condition: true, info: card})}
+                        className="bg-gray-100 w-[93%] text-gray-500 hover:cursor-pointer  justify-center flex items-center shadow-md p-1  rounded-md "
+                      >
                         {card.title}
                       </div>
                     </article>
@@ -62,3 +71,18 @@ const ScheduleMainBlocks = ({ daysInWeek, finalHourArr }) => {
 };
 
 export default ScheduleMainBlocks;
+
+
+<div className=" w-full p-3 flex h-[92%] gap-2 ">
+<div className="bg-gray-200 w-[15em] h-full rounded-lg"></div>
+<div className=" w-[58em] border-2 flex gap-2" id='scrollbar'>
+<div className="bg-gray-200 w-[15em] h-full rounded-lg"></div>
+<div className="bg-gray-200 w-[15em] h-full rounded-lg"></div>
+<div className="bg-gray-200 w-[15em] h-full rounded-lg"></div>
+<div className="bg-gray-200 w-[15em] h-full rounded-lg"></div>
+<div className="bg-gray-200 w-[15em] h-full rounded-lg"></div>
+<div className="bg-gray-200 w-[15em] h-full rounded-lg"></div>
+</div>
+
+
+</div>

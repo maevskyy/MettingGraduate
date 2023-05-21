@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 const TableItems = ({ startDay, setChosenState, chosenState }) => {
 
+  
+
 
   const day = startDay.clone().subtract(1, 'day');
 
@@ -22,7 +24,7 @@ const TableItems = ({ startDay, setChosenState, chosenState }) => {
               ? 'bg-red-300/25'
               : ''
           }
-          ${chosenState === el.format('YYYY-MM-DD') ? 'bg-green-300/25' : ''}`}
+`}
           onClick={() => setChosenState(el.format('YYYY MM DD'))}
         >
           {el.format('D')}
@@ -33,3 +35,5 @@ const TableItems = ({ startDay, setChosenState, chosenState }) => {
 };
 
 export default TableItems;
+
+//           ${chosenState === el.format('YYYY-MM-DD') ? 'bg-green-300/25' : ''}

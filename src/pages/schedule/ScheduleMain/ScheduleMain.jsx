@@ -1,7 +1,7 @@
 import moment from 'moment';
 import ScheduleMainBlocks from './ScheduleMainBlocks';
 
-const ScheduleMain = ({ endWeekDay, startWeekDay, finalHourArr }) => {
+const ScheduleMain = ({ setIsEventOpen, endWeekDay, startWeekDay, finalHourArr }) => {
   const daysInWeek = [];
   const day = startWeekDay.clone();
   while (!day.isAfter(endWeekDay)) {
@@ -28,6 +28,7 @@ const ScheduleMain = ({ endWeekDay, startWeekDay, finalHourArr }) => {
       <ScheduleMainBlocks
         finalHourArr={finalHourArr}
         daysInWeek={daysInWeek}
+        setIsEventOpen={setIsEventOpen}
       />
     </main>
   );
