@@ -4,7 +4,7 @@ import './ScheduleMainBlocks.css';
 const ScheduleMainBlocks = ({setIsEventOpen, daysInWeek, finalHourArr }) => {
 
 
-
+console.log(finalHourArr)
   
   const scheduleState = useSelector((state) => state.scheduleReducer);
 
@@ -46,8 +46,8 @@ const ScheduleMainBlocks = ({setIsEventOpen, daysInWeek, finalHourArr }) => {
                       key={card.id}
                       className="w-full absolute flex  justify-center z-20"
                       style={{
-                        top: `${card.hourFrom}`,
-                        bottom: `${card.hourTill}`,
+                        top: `${card.hourFromPx}`,
+                        bottom: `${card.hourTillPx}`,
                       }}
                     >
                       <div

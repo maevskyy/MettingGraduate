@@ -20,8 +20,10 @@ const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
     id: nanoid(),
     title: 'Default Title',
     date: moment().format('YYYY MM DD'),
-    hourFrom: '0px',
-    hourTill: '505px',
+    hourFrom: '12:00',
+    hourTill: '13:00',
+    hourFromPx: '0px',
+    hourTillPx: '505px',
     guests: [],
     location: '',
     description: '',
@@ -37,14 +39,19 @@ const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
       id: nanoid(),
       title: 'Default Title',
       date: moment().format('YYYY MM DD'),
-      hourFrom: '0px',
-      hourTill: '505px',
+      hourFrom: '12:00',
+      hourTill: '13:00',
+      hourFromPx: '0px',
+      hourTillPx: '505px',
       guests: [],
       location: '',
       description: '',
     });
     setIsCreateOpen((prev) => !prev);
   };
+
+console.log(calendarEvent)
+
 
   return (
     <section className="absolute p-5 top-0 right-0 h-full bg-white z-40 w-[20em] shadow-xl flex flex-col gap-[1.5em]">
@@ -89,12 +96,12 @@ const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
           <select
             className="mb-1 first-letter:border-gray-300 border-[1px] w-full rounded-sm placeholder:italic text-[12px] p-[.3em] px-[1em]"
             onChange={(e) =>
-              setCalendarEvent({ ...calendarEvent, hourFrom: e.target.value })
+              setCalendarEvent({ ...calendarEvent, hourFromPx: e.target.value.slice(0,6).trim(), hourFrom: e.target.value.slice(6,13).trim() })
             }
           >
             {finalHourArr.map((el) => (
               <option
-                value={`${el.top}px`}
+                value={`${el.top}px  ${el.hour}`}
                 key={el.hour}
               >
                 {el.hour}
@@ -104,13 +111,13 @@ const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
           <select
             className="mb-1 first-letter:border-gray-300 border-[1px] w-full rounded-sm placeholder:italic text-[12px] p-[.3em] px-[1em]"
             onChange={(e) =>
-              setCalendarEvent({ ...calendarEvent, hourTill: e.target.value })
+              setCalendarEvent({ ...calendarEvent, hourTillPx: e.target.value.slice(0,6).trim(), hourTill: e.target.value.slice(6,13).trim() })
             }
           >
             {finalHourArr.slice(1, 24).map((el) => (
               <option
-                value={`${el.bottom}px`}
-                key={el.hour}
+              value={`${el.bottom}px  ${el.hour}`}
+              key={el.hour}
               >
                 {el.hour}
               </option>
@@ -140,7 +147,9 @@ const ScheduleCreate = ({ setIsCreateOpen, finalHourArr }) => {
           className="outline-none h-[10em] resize-none mb-1 first-letter:border-gray-300 border-[1px] w-full rounded-sm placeholder:italic text-[12px] p-[.3em] px-[1em]"
           placeholder="Add description"
           value={calendarEvent.description}
-          onChange={(e) => setCalendarEvent({ ...calendarEvent, description: e.target.value })}
+          onChange={(e) =>
+            setCalendarEvent({ ...calendarEvent, description: e.target.value })
+          }
         />
       </article>
       <article className="flex ">

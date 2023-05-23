@@ -15,7 +15,11 @@ const styles = {
     navItemStyle: `text-[#C0BEFF] hover:bg-slate-100/5 inline-block w-full ease-in-out
                duration-500 border-l-2 border-transparent aria-[current=page]:text-white
                aria-[current=page]:border-red-500 aria-[current=page]:bg-inherit`,
-    navIconShape: `min-h-[1.1em] min-w-[1.1em] max-w-[1.1em] max-h-[1.1em]`
+    navIconShape: `min-h-[1.1em] min-w-[1.1em] max-w-[1.1em] max-h-[1.1em]`,
+    midIconShape: `min-h-[1.3em] min-w-[1.3em] max-w-[1.3em] max-h-[1.3em]`,
+    bigIconShape: `min-h-[1.5em] min-w-[1.5em] max-w-[1.5em] max-h-[1.5em]`,
+    todayMemeShape: `min-h-[3em] min-w-[3em] max-w-[3em] max-h-[3em]`
+
   };
   
   export { styles };

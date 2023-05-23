@@ -22,7 +22,7 @@ const Navbar = () => {
             />
           </div>
           <h1 className=" opacity-0 group-[:hover]:opacity-100  duration-[1s] ease-[cubic-bezier(0,0,0,100)]  font-semibold text-[1.7em] text-[#C0BEFF]">
-            OnPhase
+            {/* OnPhase */}
           </h1>
         </a>
         <ul className="font-Roboto flex flex-col gap-[1em] h-[100%]">

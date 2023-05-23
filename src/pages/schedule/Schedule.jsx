@@ -22,7 +22,8 @@ const Schedule = () => {
   const todayTableHandler = () => {
     setToday(moment());
   };
-
+ 
+  
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isEventOpen, setIsEventOpen] = useState({
     condition: false,

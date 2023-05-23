@@ -1,11 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux'
+import TodayMainEmpty from './TodayMainEmpty';
+import TodaMain from './TodaMain';
 
 
 const Today = () => {
-  return (
-    <div className="p-5">
 
-    </div>
+  const mainState = useSelector(state => state.scheduleReducer)
+
+  const [isEmpty, setIsEmpty] = useState(true)
+
+  useEffect(() => {    
+    if (mainState.length) {
+      setIsEmpty(false)
+    }
+  },[mainState])
+
+  return (
+    <>
+    {
+      isEmpty
+      ? <TodayMainEmpty/>
+      : <TodaMain/>
+    }
+    </>
   );
 };
 

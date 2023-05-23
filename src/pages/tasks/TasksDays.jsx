@@ -20,11 +20,12 @@ const TasksDays = ({ info }) => {
   const today = moment();
   const isToday =
     info.format('YYYY MM DD') == today.clone().format('YYYY MM DD')
-      ? 'text-blue-300'
+      ? 'text-red-400'
       : '';
 
   const [showCreateScreen, setShowCreateScreen] = useState(false);
   const [showTable, setShowTable] = useState(false);
+  const [checkEvent, setCheckEvent] = useState(false);
 
   const [taskEvent, setTaskEvent] = useState({
     id: nanoid(),
@@ -142,13 +143,19 @@ const TasksDays = ({ info }) => {
                         <h3>{el.title}</h3>
                       </section>
                       <section className="flex flex-col gap-3">
-                        <button>
-                          <AiOutlineCheckSquare
-                            className={`${styles.navIconShape}`}
-                          />
+                        <button onClick={() => setCheckEvent(!checkEvent)}>
+                          {checkEvent ? (
+                            <AiFillCheckSquare
+                              className={`${styles.midIconShape} text-green-600`}
+                            />
+                          ) : (
+                            <AiOutlineCheckSquare
+                            className={`${styles.midIconShape}`}
+                            />
+                          )}
                         </button>
                         <button>
-                          <AiFillDelete className={`${styles.navIconShape}`} />
+                          <AiFillDelete className={`${styles.midIconShape}`} />
                         </button>
                       </section>
                     </div>

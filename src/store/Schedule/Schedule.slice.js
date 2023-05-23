@@ -13,7 +13,32 @@ const dateBlock = {
 
 export const ScheduleSlice = createSlice({
   name: 'Schedule',
-  initialState: [],
+  initialState: [
+    {
+      date: '2020 05 23',
+      notesCards: [],
+      calendarCards: [
+        {
+          id: 12,
+          title: 'Default Title',
+          date: '2020 05 23',
+          hourFrom: '',
+          hourTill: '',
+          hourFromPx: '0px',
+          hourTillPx: '505px',
+          guests: [],
+          location: '',
+          description: '',
+
+        },
+      ],
+      todoCards: {
+        current: [],
+        completed: [],
+        deleted: [],
+      },
+    },
+  ],
   reducers: {
     addCalendarEvent: (state, action) => {
       if (state.some((obj) => obj.date === action.payload.date)) {
